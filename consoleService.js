@@ -1,4 +1,5 @@
-const rls = require('readline-sync');
+const rls = require("readline-sync");
+const SodaType = require('./sodaType');
 
 /**
  * Allows us to interact with the user via the console
@@ -8,32 +9,50 @@ class ConsoleService {
     this.MAX_SODA_CAPACITY = maxCapacity;
   }
 
-  getNewSodaInfo() {
+  /**
+   * Gets info needed to create a new soda type from the user
+   */
+  getNewSodaType() {
     // Ask the user for soda type
     let name = rls.question("Please enter the name of the soda: ");
-    let amount = parseInt(rls.question("Please enter the amount of sodas to load (between 1 and 25 sodas): "));
+    let amount = parseInt(
+      rls.question(
+        "Please enter the amount of sodas to load (between 1 and 25 sodas): "
+      )
+    );
 
     // Re-ask for the amount if an invalid amount is entered
-    while (amount <= 0 || amount > this.MAX_SODA_CAPACITY || typeof amount !== "number") {
-      amount = parseInt(rls.question("Please enter the amount of sodas to load (between 1 and 25 sodas): "));
+    while (
+      amount <= 0 ||
+      amount > this.MAX_SODA_CAPACITY ||
+      typeof amount !== "number"
+    ) {
+      amount = parseInt(
+        rls.question(
+          "That's not a valid amount. Please enter the amount of sodas to load (between 1 and 25 sodas): "
+        )
+      );
     }
 
-    return {
-      name: name,
-      amount: amount
-    };
+    return new SodaType(name, amount);
   }
 
+  /**
+   * Gives the user a soda (virtually,via the console)
+   * @param {SodaType} soda The soda to vend
+   */
   giveUserSoda(soda) {
     if (soda && soda.amount && soda.amount > 0) {
       console.log("Here's your soda!");
-      console.log(soda.name + " has been vended, new amount is: " + soda.amount);
+      console.log(
+        soda.name + " has been vended, new amount is: " + soda.amount
+      );
     } else {
       console.log("Sorry, " + soda.name + " is sold out.");
     }
   }
 
-  // Determine if the user wants to be in load or vending mode
+  /** Determine if the user wants to be in load or vending mode */
   getModeChoice() {
     let loadOption = -1; // Represents the option chosen from this menu
     while (loadOption !== 1 && loadOption !== 2) {
@@ -44,8 +63,10 @@ class ConsoleService {
     return loadOption;
   }
 
-  // Takes in a machine object and gets a valid choice from the machine
-  // (Assumes that the machine has at least one soda type loaded in the machine)
+  /**
+   * Takes in a machine object and gets a valid choice from the machine
+   * (Assumes that the machine has at least one soda type loaded in the machine)
+   */
   getVendChoice(machine) {
     machine.listSodas(); // Prints out the list of valid sodas
 

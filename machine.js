@@ -1,9 +1,4 @@
-class SodaType {
-  constructor(name, amount) {
-    this.name = name,
-    this.amount = amount
-  }
-}
+const SodaType = require('./sodaType');
 
 // The soda machine will contain sodas and vend them out to users
 class SodaMachine {
@@ -20,11 +15,11 @@ class SodaMachine {
   }
 
   // Adds a new soda type to the machine.  If the machine is full, return false.
-  newSodaType (name, amount) {
+  addSodaType (soda) {
     // If the machine isn't full yet
     if (this.storage.length < this.MAX_SODA_TYPES) {
       // Add the soda to the machine, then return true to indicate success
-      this.storage.push(new SodaType(name, amount));
+      this.storage.push(soda);
       return true;
     } else {
       return false; // Return false to let them know it was not added
