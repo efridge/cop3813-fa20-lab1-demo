@@ -16,7 +16,10 @@ let machineMode = consoleService.getModeChoice();
 // Loading mode: Keep looping as long as we are in loading mode
 while (machineMode === 1) {
   const soda = consoleService.getNewSodaType();     // Get the soda name and amount
-  machine.addSodaType(soda);                        // Add the soda to the machine
+  const addSuccess = machine.addSodaType(soda);     // Add the soda to the machine
+  if(!addSuccess) {                                 // Alert the user if the machine is full
+    consoleService.alertMachineFull();
+  }
   machine.listSodas();                              // Prints out the list of valid sodas
   machineMode = consoleService.getModeChoice();     // Ask the user again what they want to do
 }

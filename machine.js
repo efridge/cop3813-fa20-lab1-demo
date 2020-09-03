@@ -7,14 +7,20 @@ class SodaMachine {
     this.MAX_SODA_TYPES = sodaMax;
   }
 
-  // Prints a list of sodas for the user
+  /**
+   * Prints a list of sodas for the user
+   */
   listSodas () {
     for (let s = 1; s <= this.storage.length; s++) {
       console.log(`${s}) ${this.storage[s - 1].name}`);
     }
   }
 
-  // Adds a new soda type to the machine.  If the machine is full, return false.
+  /**
+   * Adds a new soda type to the machine.  If the machine is full, return false.
+   * @param {SodaType} soda The soda we are to add
+   * @returns {boolean} A boolean indicating our success in adding the soda.
+   */
   addSodaType (soda) {
     // If the machine isn't full yet
     if (this.storage.length < this.MAX_SODA_TYPES) {
@@ -28,8 +34,7 @@ class SodaMachine {
 
   /**
    * This should return a soda object from the specified location.
-   * @param {number} drinkId The id of the drink we're looking for
-   * @param {Array<object>} state The machine state
+   * @param {number} location The array location of the drink we're looking for
    * @returns {boolean} A boolean indicating success/failure in the vending process.
    */
   vendSoda (location) {
