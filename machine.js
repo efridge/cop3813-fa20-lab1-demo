@@ -1,5 +1,3 @@
-const MAX_SODA_TYPES = 8;
-
 class SodaType {
   constructor(name, amount) {
     this.name = name,
@@ -9,8 +7,9 @@ class SodaType {
 
 // The soda machine will contain sodas and vend them out to users
 class SodaMachine {
-  constructor() {
+  constructor(sodaMax) {
     this.storage = [];
+    this.MAX_SODA_TYPES = sodaMax;
   }
 
   // Prints a list of sodas for the user
@@ -23,7 +22,7 @@ class SodaMachine {
   // Adds a new soda type to the machine.  If the machine is full, return false.
   newSodaType (name, amount) {
     // If the machine isn't full yet
-    if (this.storage.length < MAX_SODA_TYPES) {
+    if (this.storage.length < this.MAX_SODA_TYPES) {
       // Add the soda to the machine, then return true to indicate success
       this.storage.push(new SodaType(name, amount));
       return true;
