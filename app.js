@@ -1,8 +1,8 @@
 // Lab 1 Solution
 // By E.L. Fridge
 
-const Machine = require('./machine');
-const ConsoleService = require('./consoleService');
+const Machine = require('./entities/machine');
+const ConsoleService = require('./lib/consoleService');
 const MAX_SODA_CAPACITY = 25;
 const MAX_SODA_TYPES = 8;
 
@@ -29,7 +29,9 @@ let choice = consoleService.getVendChoice(machine); // Ask the user for a valid 
 
 // Vending mode: Keep looping as long as we're vending sodas
 while (choice !== 0) {
-  let soda = machine.vendSoda(choice);              // Vend the soda
-  consoleService.giveUserSoda(soda);
+  let soda = machine.vendSoda(choice);              // Vend the soda to the user if found
+  if(soda) {
+    consoleService.giveUserSoda(soda);
+  }
   choice = consoleService.getVendChoice(machine);   // Get another choice
 }
